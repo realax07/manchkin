@@ -5,6 +5,7 @@ import {canSellCard,sellItem,discardHandCard,itemUsable,monsterModifiers} from '
 import {useCombatPotion} from '../public/combat.js';
 import {claimRewards,settleClaims} from '../public/combat-outcomes.js';
 import {tableEffects} from '../public/table-state.js';
+import {displayedActor,personalEffects} from '../public/player-panel.js';
 import {playLevelCard} from '../public/level-cards.js';
 let uid=9000000;
 const card=en=>{const c=CARDS.find(c=>c.en===en);assert.ok(c,en);return{...structuredClone(c),uid:uid++}};
@@ -36,4 +37,42 @@ test('effect panel retains card sources, opposing sides and exact temporary modi
 });
 test('permanent race/class auras are visible without counting their equipment bonus a second time',()=>{
  const g=game(),aura={uid:uid++,en:'Test aura',name:'Усиление расы',type:'item',slot:'race-aura',bonus:3};g.players[1].equipment=[aura];const model=tableEffects(g);assert.equal(model.entries.length,1);assert.equal(model.entries[0].actor,1);assert.match(model.entries[0].detail,/уже учтён/);assert.equal(model.heroes,0);assert.equal(power(g.players[1]),g.players[1].level+3);
+});
+
+test('the personal panel follows confirmed hotseat ownership, including turns spent on bots',()=>{
+ const g=game();
+ g.players[1].bot=true;
+ g.viewingPlayer=0;
+ g.turn=1;
+ assert.equal(displayedActor(g,1),0);
+ g.turn=2;
+ assert.equal(displayedActor(g,2),0);
+ g.viewingPlayer=2;
+ assert.equal(displayedActor(g,2),2);
+ g.mode='bots';
+ assert.equal(displayedActor(g,2),0);
+ g.mode='network';
+ assert.equal(displayedActor(g,2),2);
+});
+
+test('personal effects follow potion targets and preserve the actual card and curse sources',()=>{
+ const g=game();
+ const fighter=g.players[0],helper=g.players[1],spectator=g.players[2];
+ const targeted=card('Magic Missile'),other=card('Magic Missile'),enemy=card('Magic Missile');
+ spectator.hand=[targeted,other,enemy];
+ fighter.curses=[{...card('Curse! Chicken on Your Head'),curseKey:'chicken'}];
+ helper.naughty=true;
+ startCombat(g,card('Potted Plant'));
+ g.helper=1;
+ assert.ok(useCombatPotion(g,2,targeted.uid,{side:'fighters',target:0}).ok);
+ assert.ok(useCombatPotion(g,2,other.uid,{side:'fighters',target:1}).ok);
+ assert.ok(useCombatPotion(g,2,enemy.uid,{side:'monsters'}).ok);
+ const fighterPanel=personalEffects(g,0,CARDS);
+ assert.deepEqual(fighterPanel.buffs.map(e=>e.card.uid),[targeted.uid]);
+ assert.equal(fighterPanel.strength,1+targeted.bonus);
+ assert.equal(fighterPanel.curses[0].card.uid,fighter.curses[0].uid);
+ const helperPanel=personalEffects(g,1,CARDS);
+ assert.deepEqual(helperPanel.buffs.map(e=>e.card.uid),[other.uid]);
+ assert.equal(helperPanel.curses[0].card.en,'Santa');
+ assert.deepEqual(personalEffects(g,2,CARDS).buffs,[]);
 });

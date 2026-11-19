@@ -1,0 +1,73 @@
+@media (min-width: 751px) {
+ .game-layout { grid-template-columns: minmax(218px, 242px) minmax(0, 1fr); }
+}
+@media (min-width: 1151px) {
+ .game-layout { grid-template-columns: minmax(235px, 264px) minmax(0, 1fr) minmax(245px, 285px); }
+}
+@media (min-width: 1500px) {
+ .game-layout { grid-template-columns: 264px minmax(0, 1fr) 310px; }
+}
+.personal-panel {
+ min-width: 0;
+ padding: 16px;
+ border: 1px solid var(--border);
+ border-radius: 15px;
+ background: linear-gradient(155deg, color-mix(in srgb, var(--panel), var(--purple) 10%), var(--panel));
+}
+.personal-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.personal-heading h3 { margin: 0; font-size: 16px; line-height: 1.3; overflow-wrap: anywhere; }
+.personal-heading > span { color: var(--muted); font-size: 11px; }
+.personal-identities { display: grid; gap: 3px; margin: 10px 0 12px; font-size: 12px; }
+.personal-identities > div { display: grid; grid-template-columns: 43px minmax(0,1fr); align-items: baseline; gap: 6px; }
+.personal-identities dt, .personal-stats dt { color: var(--muted); }
+.personal-identities dd, .personal-stats dd { margin: 0; }
+.personal-identities dd { font-weight: 700; overflow-wrap: anywhere; }
+.personal-card-trigger {
+ color: inherit;
+ border: 0;
+ background: none;
+ text-align: left;
+ padding: 0;
+ font: inherit;
+}
+.personal-identities .personal-card-trigger { text-decoration: underline dotted var(--purple); text-underline-offset: 3px; }
+.personal-card-trigger:hover, .personal-card-trigger[aria-expanded="true"] { color: var(--gold); }
+.personal-card-trigger:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.personal-stats { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin: 0 0 14px; }
+.personal-stats > div { min-width: 0; padding: 7px 10px; border: 1px solid var(--border); border-radius: 9px; background: var(--bg); }
+.personal-stats dt { font-size: 11px; }
+.personal-stats dd { font-size: 23px; line-height: 1.2; color: var(--gold); font-weight: 800; }
+.personal-effect-group { margin: 0; padding-top: 10px; border-top: 1px solid var(--border); }
+.personal-effect-group + .personal-effect-group { margin-top: 10px; }
+.personal-effect-group h4 { margin: 0 0 6px; font-size: 12px; }
+.personal-effect-group p { margin: 0; color: var(--muted); font-size: 11px; }
+.personal-effect-group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.personal-effect { min-width: 0; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+.personal-effect .personal-card-trigger, .personal-effect-text {
+ width: 100%;
+ display: grid;
+ grid-template-columns: minmax(21px,max-content) minmax(0,1fr);
+ align-items: baseline;
+ gap: 5px;
+ padding: 6px 8px;
+ border-radius: inherit;
+ line-height: 1.35;
+}
+.personal-effect strong, .personal-effect small { display: block; overflow-wrap: anywhere; }
+.personal-effect strong { font-size: 11px; }
+.personal-effect small { margin-top: 2px; color: var(--muted); font-size: 10px; }
+.personal-effect-symbol { color: var(--gold); font-weight: 800; font-size: 11px; }
+.personal-effect-symbol.curse { color: var(--purple); }
+.personal-panel .inventory-trigger { width: 100%; justify-content: center; margin-top: 12px; }
+.player-card-preview {
+ position: fixed;
+ z-index: 49;
+ width: min(168px, calc(100vw - 16px));
+ max-height: calc(100dvh - 16px);
+ overflow: auto;
+ pointer-events: none;
+ border-radius: 12px;
+ box-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 85%, transparent);
+}
+.player-card-preview.pinned { pointer-events: auto; }
+.player-card-preview .hand-card { transform: none; }

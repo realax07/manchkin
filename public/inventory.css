@@ -1,0 +1,63 @@
+.game-sidebar { min-width: 0; display: grid; gap: 15px; }
+.inventory-trigger.outline {
+ display: flex;
+ align-items: center;
+ gap: 9px;
+ min-height: 43px;
+ color: var(--gold);
+ border-color: var(--purple);
+}
+.inventory-dialog.modal {
+ width: min(940px, calc(100% - 24px));
+ max-width: none;
+ max-height: calc(100dvh - 32px);
+ padding: 0;
+ overflow: hidden;
+ color: var(--text);
+ text-align: left;
+}
+.inventory-dialog::backdrop {
+ background: color-mix(in srgb, var(--bg) 76%, transparent);
+ backdrop-filter: blur(3px);
+}
+.inventory-frame {
+ display: flex;
+ flex-direction: column;
+ max-height: inherit;
+}
+.inventory-dialog-heading {
+ display: flex;
+ align-items: flex-start;
+ justify-content: space-between;
+ gap: 14px;
+ padding: 22px 24px 14px;
+}
+.inventory-dialog-heading h2 { margin: 0; }
+.inventory-dialog-heading p { margin: 3px 0 0; color: var(--muted); }
+.inventory-dialog-close { min-width: 44px; min-height: 44px; font-size: 24px; line-height: 1; }
+.inventory-tabs {
+ display: flex;
+ gap: 8px;
+ padding: 0 24px 14px;
+ border-bottom: 1px solid var(--border);
+}
+.inventory-tabs [aria-selected="true"] { color: var(--gold); border-color: var(--gold); }
+.inventory-body {
+ min-height: 0;
+ padding: 16px 24px 22px;
+ overflow: auto;
+ overscroll-behavior: contain;
+ scrollbar-width: thin;
+}
+.inventory-dialog .loadout { border: 0; margin: 0; padding: 0; }
+.inventory-dialog .loadout > .inventory-head { margin-bottom: 12px; }
+.inventory-dialog .loadout > .inventory-head h3 { font-size: 16px; }
+.inventory-dialog .loadout > .inventory-head h3 span { color: var(--gold); }
+.inventory-dialog .gear-grid { grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); }
+.inventory-dialog .identity-heading { flex-wrap: wrap; }
+.inventory-dialog .abilities-panel { margin-top: 0; }
+@media (max-width: 550px) {
+ .inventory-dialog-heading { padding: 14px 13px 10px; }
+ .inventory-tabs { padding: 0 13px 12px; }
+ .inventory-body { padding: 13px; }
+}

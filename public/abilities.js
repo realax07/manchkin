@@ -41,9 +41,9 @@ export function useAbility(g,actor,key,{costUids=[],targetUid=null,rollDie=()=>1
  const stabPenalty=has(p,'Thief')&&p.equipment.some(c=>c.grantsBackstab&&itemUsable(p,c))?3:2;
  const spent=allowed.filter(c=>uids.includes(c.uid));p.hand=p.hand.filter(c=>!uids.includes(c.uid));p.equipment=p.equipment.filter(c=>!uids.includes(c.uid));for(const c of spent)boomReturn(g,actor,c,'ability');discard(g,spent);g.lastDiscard=null;
  g.abilityUses??={};const counter=`${actor}:${key}`;g.abilityUses[counter]=used(g,counter)+1;let text=`${p.name}: ${option.name}.`,faceUp=null;
- if(key==='berserk'||key==='turn'||key==='claws')addCombatBonus(g,key==='berserk'?1:key==='turn'?3:emptyHands(p)*3,{actor,kind:'ability',tag:key});
- if(key==='backstab'){recordSabotage(g,actor);g.abilityUses[`${counter}:${targetUid}`]=1;addCombatBonus(g,-stabPenalty,{actor,kind:'ability',tag:'backstab'})}
- if(key==='illusion'){const illusion=p.hand.find(c=>c.uid===targetUid);p.hand=p.hand.filter(c=>c.uid!==targetUid);g.illusionBonus=illusion.printedPower??illusion.power;addCombatBonus(g,g.illusionBonus,{actor,kind:'ability',tag:'illusion'});discard(g,illusion)}
+ if(key==='berserk'||key==='turn'||key==='claws')addCombatBonus(g,key==='berserk'?1:key==='turn'?3:emptyHands(p)*3,{actor,target:actor,kind:'ability',tag:key});
+ if(key==='backstab'){recordSabotage(g,actor);g.abilityUses[`${counter}:${targetUid}`]=1;addCombatBonus(g,-stabPenalty,{actor,target:targetUid,kind:'ability',tag:'backstab'})}
+ if(key==='illusion'){const illusion=p.hand.find(c=>c.uid===targetUid);p.hand=p.hand.filter(c=>c.uid!==targetUid);g.illusionBonus=illusion.printedPower??illusion.power;addCombatBonus(g,g.illusionBonus,{actor,target:actor,kind:'ability',tag:'illusion'});discard(g,illusion)}
  if(key==='resurrect')faceUp=reclaimed;
  if(key==='scavenge')p.hand.push(reclaimed);
  if(key==='steal'){const roll=rollDie()+diePenalty(p);if(roll>=4){const victim=g.players.find(x=>x!==p&&x.equipment.some(c=>c.uid===targetUid));const item=victim.equipment.find(c=>c.uid===targetUid);boomReturn(g,g.players.indexOf(victim),item,'theft');victim.equipment=victim.equipment.filter(c=>c.uid!==targetUid);discardOverlays(g,victim,[targetUid]);delete item.overlayBaseUid;p.hand.push(item);text+=` Кубик ${roll}: добыча в руке!`}else{p.level=Math.max(1,p.level-1);text+=` Кубик ${roll}: поймали, −1 уровень.`}}
