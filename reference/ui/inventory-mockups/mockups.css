@@ -1,0 +1,95 @@
+.mock-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 10px 18px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+.mock-switch { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mock-switch button[aria-pressed="true"],
+.inv-nav button[aria-selected="true"] { color: var(--gold); border-color: var(--gold); }
+.mock-game-header .outline { cursor: default; }
+#app [data-mock-card],
+.inv-dialog [data-mock-card] { opacity: 1; cursor: default; }
+.game-layout { position: relative; }
+.game-layout > .table-effects { margin-top: 58px; }
+.inv-entry {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+  color: var(--gold);
+  border-color: var(--purple);
+  min-height: 43px;
+}
+.inv-section h3 span { color: var(--gold); }
+.game-layout > .table-effects { grid-column: 1; grid-row: 1; }
+.inv-dialog {
+  padding: 0;
+  overflow: hidden;
+  max-width: none;
+  text-align: left;
+  color: var(--text);
+  max-height: calc(100dvh - 32px);
+  width: min(940px, calc(100vw - 32px));
+}
+.inv-dialog::backdrop { background: #0b0812aa; backdrop-filter: blur(3px); }
+.inv-shell { display: flex; flex-direction: column; max-height: inherit; }
+.inv-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 22px 24px 14px;
+}
+.inv-header h2 { margin: 0; }
+.inv-header p { margin: 3px 0 0; color: var(--muted); }
+.inv-close { line-height: 1; font-size: 24px; min-width: 44px; min-height: 44px; }
+.inv-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 24px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.inv-content { position: relative; padding: 0 24px 22px; overflow: auto; scrollbar-width: thin; min-height: 0; overscroll-behavior: contain; }
+.inv-section[hidden] { display: none; }
+.inv-section { padding-top: 16px; }
+.inv-section h3 { margin: 0 0 12px; }
+.inv-section h3 span { margin-left: 6px; font-size: 12px; }
+.inv-dialog .gear-grid { grid-template-columns: repeat(auto-fit,minmax(105px,1fr)); }
+.inv-dialog .identity-heading { flex-wrap: wrap; }
+.inv-dialog .abilities-panel { margin: 0 0 12px; }
+.inv-dialog .abilities-panel .inventory-head { margin-bottom: 8px; }
+.inv-dialog #inv-actions .abilities-panel h3 { font-size: 14px; }
+.inv-dialog[data-layout="b"] {
+  inset: 12px auto 12px 12px;
+  margin: 0;
+  width: min(580px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  height: calc(100dvh - 24px);
+}
+.inv-dialog[data-layout="b"]::backdrop { background: #0b081288; backdrop-filter: blur(2px); }
+.inv-dialog[data-layout="b"] .inv-shell { height: 100%; }
+.inv-dialog[data-layout="b"] .inv-section + .inv-section { border-top: 1px solid var(--border); margin-top: 14px; }
+.inv-dialog[data-layout="b"] .gear-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.inv-dialog[data-layout="b"] .gear-grid .gear-slot { min-height: 120px; }
+.inv-dialog[data-layout="b"] .identity-grid { grid-template-columns: 1fr; }
+@media (max-width: 750px) {
+  .game-layout > .table-effects { margin-top: 0; grid-row: 2; }
+  .inv-entry { width: 100%; }
+}
+@media (max-width: 550px) {
+  .mock-toolbar { gap: 8px; }
+  .inv-header { padding: 14px 13px 10px; }
+  .inv-nav { padding: 0 13px 12px; gap: 5px; }
+  .inv-nav .outline { padding: 7px 9px; font-size: 11px; }
+  .inv-content { padding: 0 13px 15px; }
+  .inv-dialog[data-layout="b"] .gear-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}

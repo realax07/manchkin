@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+._*
+
+# Local dependencies and generated output
+node_modules/
+coverage/
+dist/
+build/
+*.log
+__pycache__/
+*.py[cod]
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+.codex/
+.agents/

@@ -1,0 +1,26 @@
+{
+  "source": "/Users/ekotov/Downloads/music_table_b.wav",
+  "source_sha256": "2ea03d84288857ac732746f50245340032dff95fdb0d9d3309980ffca18e7d2d",
+  "source_seconds": 171.2,
+  "sample_rate": 48000,
+  "channels": 2,
+  "source_peak_dbfs": -2.5697498321533203,
+  "clipped_source_samples": 0,
+  "source_rms_dbfs": -17.798303604125977,
+  "source_active_range_seconds": [
+    0.0,
+    169.5
+  ],
+  "selected_source_start_seconds": 31.2,
+  "selected_source_end_seconds": 148.3,
+  "crossfade_seconds": 3.0,
+  "loop_seconds": 114.1,
+  "gain_db": 0.0,
+  "loop_peak_dbfs": -2.57901930809021,
+  "loop_seam_max_channel_step": 0.008392333984375,
+  "spectral_match_mse": 0.01882354475656396,
+  "status": "candidate_prepared_requires_listening",
+  "method": "Spectral and pitch-class sequence matching, 3 second linear cyclic crossfade. No subjective listening assessment performed.",
+  "normal_sample_step_p99": 0.043487548828125,
+  "seam_below_normal_step_p99": true
+}

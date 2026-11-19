@@ -1,0 +1,14 @@
+{
+  "kind": "procedural_synthesis_not_recording",
+  "status": "candidate_requires_listening",
+  "sample_rate": 48000,
+  "channels": 2,
+  "duration_seconds": 30,
+  "events": 44,
+  "peak_dbfs": -21.05527471571292,
+  "rms_dbfs": -34.58034852773284,
+  "boundary_step": 0.0012988523288205434,
+  "normal_sample_step_p99": 0.0024410109691353197,
+  "seed": 16112026,
+  "preview_seam_seconds": 6
+}

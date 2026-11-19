@@ -1,0 +1,34 @@
+// Identity checks are shared by equipment, combat and the ability UI.
+export function has(p,en){
+ if(en==='Human'){
+  const races=p.equipment.filter(c=>c.type==='race').length;
+  const limit=p.equipment.find(c=>c.slot==='race-mod')?.limit||1;
+  return races===0||races<limit;
+ }
+ return p.equipment.some(c=>c.en===en||c.id===en.toLowerCase());
+}
+export const handLimit=p=>has(p,'Dwarf')?6:5;
+export const handCapacity=p=>2+p.equipment.reduce((n,c)=>n+(!c.cursedThingy?c.extraHands||0:0),0);
+export function normalizeHands(p){let used=0;const lost=[];p.equipment=p.equipment.filter(c=>{if(c.slot!=='hand'||c.cheatCard||c.hirelingUid)return true;used+=c.hands??1;if(used<=handCapacity(p)||c.cursedThingy)return true;lost.push(c);return false});p.hand.push(...lost);return lost}
+export const emptyHands=p=>Math.max(0,handCapacity(p)-p.equipment.filter(c=>c.slot==='hand'&&!c.cheatCard&&!(c.hirelingUid&&p.equipment.some(h=>h.uid===c.hirelingUid))).reduce((n,c)=>n+(c.hands||1),0));
+export const traitBonus=p=>has(p,'Gnome')?p.equipment.filter(c=>c.type==='item'&&/^[gn]/i.test(c.en||'')).length:0;
+export const escapeBonus=(p,m)=>(m.escapeModifier||0)+p.equipment.reduce((n,c)=>n+(!c.cursedThingy?c.runAway||0:0),0)+(has(p,'Elf')?1:0)+(has(p,'Lizard Guy')?(m.power>=16?2:m.power>=10?1:0):0);
+export const TRAITS={
+ Warrior:'В ничьей побеждает сторона воина. Ярость: сбрось до 3 карт за бой, каждая даёт +1.',
+ Cleric:'Против нежити: до 3 сбросов за бой, каждый даёт +3. Воскрешение: вместо открытой двери возьми верхнюю карту сброса дверей, заплатив картой из руки.',
+ Wizard:'Зачарование: сбрось всю руку (минимум 3 карты), убери одного монстра и получи его сокровища после победы над остальными. Уровня за него нет. Полёт: после неудачной смывки до 3 сброшенных карт дают по +1 к броску.',
+ Thief:'Подрезка: сбрось карту, чтобы дать −2 чужой стороне в бою, один раз на каждого бойца. Воровство вне боя: сбрось карту, брось 4–6 и укради небольшую шмотку; иначе −1 уровень.',
+ Bard:'Завораживание: сбрось карту и перебрось соперника на кубике, чтобы призвать его без платы. Нельзя принудить к помощи в бою за победный уровень.',
+ Ranger:'Даёт +2, когда помогает в бою. Приручение: сбрось прежних скакунов и столько карт, сколько сокровищ у монстра: он станет скакуном с таким бонусом.',
+ Druid:'Кошачьи когти: сбрось карту, чтобы получить +3 за каждую свободную руку на этот бой. Один раз за бой.',
+ Elf:'+1 к смывке. За помощь получает по уровню за каждого убитого монстра; так можно победить!',
+ Dwarf:'Можно оставить 6 карт в руке в конце хода. Ограничения на большие шмотки сняты.',
+ Halfling:'Первую выбранную шмотку за ход можно продать вдвое дороже. После неудачной смывки можно сбросить карту и перебросить кубик.',
+ Orc:'Может отменить направленное на него проклятие потерей 1 уровня, кроме первого. Если побеждает без помощника с перевесом больше 10, получает дополнительный уровень.',
+ Gnome:'Иллюзия в одиночном бою: монстр из руки даёт бонус, равный его уровню, до конца боя. +1 за каждую надетую шмотку с английским названием на G или N.',
+ Centaur:'Может одновременно носить две обувки и любое количество скакунов.',
+ 'Lizard Guy':'Смывка: +1 против монстров 10–15 уровня и +2 против 16+. Одноразовое зелье, сыгранное в пользу монстров, действует вдвое сильнее.',
+ Bug:'Подбирает только что сброшенную расу или класс: сбрось 2 карты и забери её в руку. Окно действует до следующего игрового действия.'
+};
+
+export function recordSabotage(g,actor){if(actor===g.turn||actor===g.helper)return;g.saboteurs??=[];if(!g.saboteurs.includes(actor))g.saboteurs.push(actor);const p=g.players[g.turn];if(p.bot){p.aiMemory??={};p.aiMemory[actor]=(p.aiMemory[actor]||0)+1}}

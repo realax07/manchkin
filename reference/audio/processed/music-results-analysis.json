@@ -1,0 +1,26 @@
+{
+  "source": "/Users/ekotov/Downloads/music_results.wav",
+  "source_sha256": "4dc0a44965a27753463da83eb5af67f3f42decfefd913a70223496434996db11",
+  "source_seconds": 200.0,
+  "sample_rate": 48000,
+  "channels": 2,
+  "source_peak_dbfs": -2.820631265640259,
+  "clipped_source_samples": 0,
+  "source_rms_dbfs": -17.872970581054688,
+  "source_active_range_seconds": [
+    0.2,
+    199.3
+  ],
+  "selected_source_start_seconds": 33.9,
+  "selected_source_end_seconds": 181.4,
+  "crossfade_seconds": 3.0,
+  "loop_seconds": 144.5,
+  "gain_db": 0.0,
+  "loop_peak_dbfs": -2.8544399738311768,
+  "loop_seam_max_channel_step": 0.003204345703125,
+  "spectral_match_mse": 0.011548841654015467,
+  "status": "candidate_prepared_requires_listening",
+  "method": "Spectral and pitch-class sequence matching, 3 second linear cyclic crossfade. No subjective listening assessment performed.",
+  "normal_sample_step_p99": 0.030853271484375,
+  "seam_below_normal_step_p99": true
+}

@@ -1,0 +1,26 @@
+{
+  "source": "/Users/ekotov/Downloads/music_combat.wav",
+  "source_sha256": "aa477bdfbfe4e5ce50e79023ffb9abb7f71ac186d5e78e101a4825edae58d245",
+  "source_seconds": 193.2,
+  "sample_rate": 48000,
+  "channels": 2,
+  "source_peak_dbfs": -3.2688233852386475,
+  "clipped_source_samples": 0,
+  "source_rms_dbfs": -17.88347625732422,
+  "source_active_range_seconds": [
+    0.1,
+    192.0
+  ],
+  "selected_source_start_seconds": 15.2,
+  "selected_source_end_seconds": 159.2,
+  "crossfade_seconds": 3.0,
+  "loop_seconds": 141.0,
+  "gain_db": 0.0,
+  "loop_peak_dbfs": -3.804023265838623,
+  "loop_seam_max_channel_step": 0.004852294921875,
+  "spectral_match_mse": 0.005589043151714975,
+  "status": "candidate_prepared_requires_listening",
+  "method": "Spectral and pitch-class sequence matching, 3 second linear cyclic crossfade. No subjective listening assessment performed.",
+  "normal_sample_step_p99": 0.0460205078125,
+  "seam_below_normal_step_p99": true
+}
